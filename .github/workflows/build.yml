@@ -11,11 +11,10 @@ jobs:
       - name: Install buildozer
         run: |
           sudo apt update
-          sudo apt install -y openjdk-17-jdk zip unzip python3-pip
+          sudo apt install -y openjdk-17-jdk zip unzip
           pip install --upgrade pip
           pip install cython==0.29.33
-          pip install buildozer==1.5.0
-          pip install python-for-android==2023.6.11
+          pip install buildozer
       - name: Build
         run: |
           buildozer android debug
