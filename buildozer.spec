@@ -1,22 +1,51 @@
 [app]
+
+# (str) Title of your application
 title = Hydra
+
+# (str) Package name
 package.name = hydra
-package.domain = com.hydra.app
+
+# (str) Package domain
+package.domain = com.hydra.hydra
+
+# (str) Source code where the main.py live
 source.dir =.
+
+# (list) Source files to include
 source.include_exts = py,png,jpg,kv,atlas
-version = 1.0
+
+# (str) Application versioning
+version = 0.1
+
+# (list) Application requirements
 requirements = python3,kivy==2.3.0
+
+# (str) Supported orientation
 orientation = portrait
+
+# (int) Display file
 fullscreen = 0
+
+# (list) Permissions
 android.permissions = INTERNET
+
+# (int) Target Android API
 android.api = 33
+
+# (int) Minimum API
 android.minapi = 21
+
+# (str) Android NDK version
 android.ndk = 25b
-android.build_tools_version = 33.0.2
+
+# (bool) Accept SDK license
 android.accept_sdk_license_agreement = True
-p4a.branch = 2023.9.16
-p4a.fork = kivy
 
 [buildozer]
+
+# (int) Log level (0 = error only, 1 = info, 2 = debug)
 log_level = 2
+
+# (str) Buildozer working directory
 warn_on_root = 1
