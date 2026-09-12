@@ -18,26 +18,26 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Force install Build-Tools 33 AND 37 + accept licenses
+      - name: Install Build-Tools + accept licenses
         run: |
           yes | sdkmanager --licenses
           sdkmanager --install "platform-tools" "platforms;android-33" "build-tools;33.0.2" "build-tools;37.0.0" "ndk;25.1.8937393"
-          ls /usr/local/lib/android/sdk/build-tools/37.0.0/aidl
-          echo "AIDl FOUND!"
 
       - name: Set up Python 3.10
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Install Buildozer
+      - name: Install Buildozer + PINNED P4A
         run: |
           pip install --upgrade pip
-          pip install cython==0.29.33 buildozer
+          pip install cython==0.29.33
+          pip install python-for-android==2023.9.16
+          pip install buildozer==1.5.0
 
       - name: Build APK
         run: |
-          yes | buildozer -v android debug
+          buildozer android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
