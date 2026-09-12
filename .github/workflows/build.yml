@@ -3,6 +3,9 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-22.04
+    env:
+      ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+      ANDROID_HOME: /usr/local/lib/android/sdk
     steps:
       - uses: actions/checkout@v4
 
@@ -15,11 +18,12 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install Build-Tools 33.0.2 + Accept Licenses
+      - name: Force install Build-Tools 33 AND 37 + accept licenses
         run: |
           yes | sdkmanager --licenses
-          sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.2" "ndk;25.1.8937393"
-          ls /usr/local/lib/android/sdk/build-tools/33.0.2/
+          sdkmanager --install "platform-tools" "platforms;android-33" "build-tools;33.0.2" "build-tools;37.0.0" "ndk;25.1.8937393"
+          ls /usr/local/lib/android/sdk/build-tools/37.0.0/aidl
+          echo "AIDl FOUND!"
 
       - name: Set up Python 3.10
         uses: actions/setup-python@v5
@@ -29,12 +33,11 @@ jobs:
       - name: Install Buildozer
         run: |
           pip install --upgrade pip
-          pip install cython==0.29.33
-          pip install buildozer
+          pip install cython==0.29.33 buildozer
 
       - name: Build APK
         run: |
-          buildozer android debug
+          yes | buildozer -v android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
